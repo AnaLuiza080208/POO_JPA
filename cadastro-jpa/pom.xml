@@ -11,30 +11,31 @@
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
-          </properties>  
+    </properties>  
 
-  <!--dependência-->
-    <dependencies>
-    
-      <!--JPA API-->
-        <dependency>
-            <groupId>jakarta.persistence</groupId>
-            <artifactId>jakarta-persistence-api</artifactId>
-            <version>3.1.0</version>
-        </dependency>
-  <!--hibernate-->
-        <dependency>
-            <groupId>org.hibernate.orm</groupId>
-            <artifactId>hibernate-core</artifactId>
-            <version>6.4.4</version>
-        </dependency>
+    <!-- Dependências -->
+   <dependencies>
+    <!-- JPA API -->
+    <dependency>
+        <groupId>jakarta.persistence</groupId>
+        <artifactId>jakarta.persistence-api</artifactId>
+        <version>3.1.0</version>
+    </dependency>
 
-    <!--postgresQL-->
-        <dependency>
-            <groupId>org.postgresql</groupId>
-            <artifactId>postgresql</artifactId>
-            <version>42.7.2</version>
-        </dependency>
-    </dependencies>
+    <!-- Hibernate Core -->
+    <dependency>
+        <groupId>org.hibernate.orm</groupId>
+        <artifactId>hibernate-core</artifactId>
+        <version>6.4.2.Final</version>
+    </dependency>
+
+    <!-- MySQL Connector -->
+    <dependency>
+        <groupId>com.mysql</groupId>
+        <artifactId>mysql-connector-j</artifactId>
+        <version>8.0.33</version>
+    </dependency>
+</dependencies>
+
 
 </project>

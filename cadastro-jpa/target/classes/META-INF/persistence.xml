@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns="https://jakarta.ee/xml/ns/persistence"
+             version="3.0">
+  <persistence-unit name="meuPU">
+    <!-- Classe da entidade JPA -->
+    <class>br.com.example.Pessoa</class>
+
+    <properties>
+      <!-- Driver JDBC para MySQL -->
+      <property name="jakarta.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
+      
+      <!-- URL de conexão com o banco MySQL na porta 3306 e banco 'aula' -->
+      <property name="jakarta.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/aula"/>
+      
+      <!-- Usuário do banco -->
+      <property name="jakarta.persistence.jdbc.user" value="aluno"/>
+      
+      <!-- Senha do banco -->
+      <property name="jakarta.persistence.jdbc.password" value="aluno"/>
+
+      <!-- Dialeto Hibernate para MySQL -->
+      <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect"/>
+      
+      <!-- Atualiza o esquema do banco automaticamente conforme entidades -->
+      <property name="hibernate.hbm2ddl.auto" value="update"/>
+      
+      <!-- Exibe as queries SQL no console -->
+      <property name="hibernate.show_sql" value="true"/>
+    </properties>
+  </persistence-unit>
+</persistence>
