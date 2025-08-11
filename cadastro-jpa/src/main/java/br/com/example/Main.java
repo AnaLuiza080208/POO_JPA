@@ -7,8 +7,14 @@ import jakarta.persistence.Persistence;
 public class Main {
     public static void main(String[] args) {
 
+        Documento documento =  new Documento();
+        documento.setEmissor("emissor");
+        documento.setTipo("rg");
+
         Pessoa p1 = new Pessoa();
         p1.setNome("Ana");
+        p1.setDocumento(documento);
+        
 
         // Cria o EntityManagerFactory com base na unidade de persistência 'meuPU'
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("meuPU");

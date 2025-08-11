@@ -5,10 +5,22 @@ import jakarta.persistence.*;
 @Entity
 public class Pessoa {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue()
 
     private Long id;
     private String nome;
+
+    @OneToOne
+    @JoinColumn(name = "documento_id", referencedColumnName = "id")
+    private Documento documento;
+
+    public Documento getDocumento() {
+        return documento;
+    }
+
+    public void setDocumento(Documento documento) {
+        this.documento = documento;
+    }
 
     public Pessoa(){
     }
