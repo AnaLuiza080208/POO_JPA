@@ -9,6 +9,7 @@ public class Documento {
 
     @Id
     @GeneratedValue()
+
     private int id;
     private String tipo;
     private String emissor;

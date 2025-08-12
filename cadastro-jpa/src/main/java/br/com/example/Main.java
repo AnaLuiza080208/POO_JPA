@@ -1,38 +1,79 @@
 package br.com.example;
 
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityManagerFactory;
-import jakarta.persistence.Persistence;
+import jakarta.persistence.*;
+import java.util.*;
 
 public class Main {
     public static void main(String[] args) {
 
-        Documento documento =  new Documento();
-        documento.setEmissor("emissor");
-        documento.setTipo("rg");
-
-        Pessoa p1 = new Pessoa();
-        p1.setNome("Ana");
-        p1.setDocumento(documento);
-        
-
-        // Cria o EntityManagerFactory com base na unidade de persistência 'meuPU'
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("meuPU");
         EntityManager em = emf.createEntityManager();
 
-        // Inicia a transação
+        Documento doc = new Documento();
+        doc.setTipo("RG");
+        doc.setEmissor("emissor");
+
+        Pessoa pessoa = new Pessoa();
+        pessoa.setNome("Ana");
+        pessoa.setDocumento(doc);
+
+        Telefone tel1 = new Telefone();
+        tel1.setNumero("11111111");
+        tel1.setPessoa(pessoa);
+
+        Telefone tel2 = new Telefone();
+        tel2.setNumero("22222222");
+        tel2.setPessoa(pessoa);
+   
+        pessoa.setTelefones(new ArrayList<>());
+        pessoa.getTelefones().add(tel1);
+        pessoa.getTelefones().add(tel2);
+
+        Projeto proj1 = new Projeto();
+        proj1.setNome("Projeto A");
+
+        Projeto proj2 = new Projeto();
+        proj2.setNome("Projeto B");
+
+        pessoa.setProjetos(new HashSet<>());
+        pessoa.getProjetos().add(proj1);
+        pessoa.getProjetos().add(proj2);
+
+        proj1.setPessoas(new HashSet<>());
+        proj2.setPessoas(new HashSet<>());
+        proj1.getPessoas().add(pessoa);
+        proj2.getPessoas().add(pessoa);
+
         em.getTransaction().begin();
 
-        // Persiste o objeto no banco de dados
-        em.persist(p1);
+        em.persist(proj1);
+        em.persist(proj2);
+        em.persist(pessoa);
 
-        // Finaliza a transação
         em.getTransaction().commit();
 
-        // Fecha o EntityManager e o EntityManagerFactory
+        List<Pessoa> pessoas = em.createQuery("FROM Pessoa", Pessoa.class).getResultList();
+
+        for (Pessoa p : pessoas) {
+            System.out.println("Pessoa: " + p.getNome());
+            System.out.println("Documento: Emissor = " + p.getDocumento().getEmissor() + ", Tipo = " + p.getDocumento().getTipo());
+        
+            System.out.println("Telefones:");
+            for (Telefone t : p.getTelefones()) {
+                System.out.println("  - " + t.getNumero());
+            }
+        
+            System.out.println("Projetos:");
+            for (Projeto proj : p.getProjetos()) {
+                System.out.println("  - " + proj.getNome());
+            }
+        
+            System.out.println("--------------------");
+        }
+
         em.close();
         emf.close();
 
-        System.out.println("Pessoa salva com sucesso!");
+        System.out.println("Dados persistidos com sucesso!");
     }
 }
